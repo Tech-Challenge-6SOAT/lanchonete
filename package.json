@@ -4,7 +4,8 @@
     "description": "lanchonete",
     "private": true,
     "scripts": {
-        "start": "tsx src/adapter/driver/app.ts"
+        "start": "tsx watch src/adapter/driver/app.ts",
+        "dev": "ts-node src/adapter/driver/app.ts"
     },
     "dependencies": {
         "express": "4.19.2"

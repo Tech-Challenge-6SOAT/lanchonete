@@ -12,5 +12,7 @@ export class PedidoService {
         return this.pedidoRepository.getPedidoById(id);
     }
 
-
+    async checkout(pedido: Omit<IPedido, 'id' | 'total'>): Promise<IPedido> {
+        return this.pedidoRepository.checkout(pedido)
+    }
 }

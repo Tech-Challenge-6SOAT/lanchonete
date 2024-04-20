@@ -1,5 +1,9 @@
-export interface IPedido {
+import { IProduto } from "./produto";
+
+export type IPedido = {
     id: string;
     status: string;
-    itens: string[];
+    produtos: IProduto[];
+    cpf?: string;
+    total: number;
 }
