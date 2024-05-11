@@ -1,3 +1,5 @@
+version: '3.7'
+
 services:
   lanchonete:
     build: .
@@ -14,6 +16,8 @@ services:
       - MONGODB_PASSWORD=admin
       - MONGODB_ROOT_PASSWORD=admin
       - MONGODB_DATABASE=lanchonete
+    networks:
+      - default
 
   mongo:
     container_name: mongo-lanchonete
@@ -22,14 +26,21 @@ services:
     ports:
       - '27017:27017'
     volumes:
-      - 'mongodb_data:/bitnami/mongodb'
+      - 'mongodb_lanchonete_data:/bitnami/mongodb'
     environment:
-      MONGODB_HOST: ${MONGODB_HOST}
-      MONGODB_USERNAME: ${MONGODB_USERNAME}
-      MONGODB_PASSWORD: ${MONGODB_PASSWORD}
-      MONGODB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
-      MONGODB_DATABASE: ${MONGODB_DATABASE}
+      - MONGODB_ROOT_USER=admin
+      - MONGODB_ROOT_PASSWORD=admin
+      - MONGODB_USERNAME=admin
+      - MONGODB_PASSWORD=admin
+      - MONGODB_DATABASE=lanchonete
+
+    networks:
+      - default
 
 volumes:
-  mongodb_data:
+  mongodb_lanchonete_data:
     driver: local
+
+networks:
+  default:
+    name: lanchonete_network
