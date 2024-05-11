@@ -7,4 +7,3 @@ export const app = Fastify({
     }
   } 
 });
-
