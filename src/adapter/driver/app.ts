@@ -1,6 +1,10 @@
-import express from "express";
+import Fastify from "fastify";
 
-const app = express();
-app.get('/', (_request, response) => response.json({ msg: 'API IS ON FIRE!' }))
-app.listen(3000, () => console.log('Server is listening on port 3000'));
+export const app = Fastify({
+  logger: {
+    transport: {
+      target: 'pino-pretty'
+    }
+  } 
+});
 
