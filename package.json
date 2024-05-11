@@ -4,11 +4,14 @@
     "description": "lanchonete",
     "private": true,
     "scripts": {
-        "start": "tsx watch src/adapter/driver/app.ts",
-        "dev": "ts-node src/adapter/driver/app.ts"
+        "start": "tsx watch src/adapter/driver/index.ts",
+        "dev": "ts-node src/adapter/driver/index.ts"
     },
     "dependencies": {
-        "express": "4.19.2"
+        "fastify": "^4.27.0",
+        "mongoose": "^8.3.4",
+        "pino": "^9.0.0",
+        "pino-pretty": "^11.0.0"
     },
     "devDependencies": {
         "@types/express": "^4.17.21",

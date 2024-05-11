@@ -8,6 +8,12 @@ services:
     working_dir: /app
     depends_on:
       - mongo
+    environment:
+      - MONGODB_HOST=mongo:27017
+      - MONGODB_USERNAME=admin
+      - MONGODB_PASSWORD=admin
+      - MONGODB_ROOT_PASSWORD=admin
+      - MONGODB_DATABASE=lanchonete
 
   mongo:
     container_name: mongo-lanchonete
@@ -18,7 +24,12 @@ services:
     volumes:
       - 'mongodb_data:/bitnami/mongodb'
     environment:
+      MONGODB_HOST: ${MONGODB_HOST}
       MONGODB_USERNAME: ${MONGODB_USERNAME}
       MONGODB_PASSWORD: ${MONGODB_PASSWORD}
-      MONGODB_DATABASE: ${MONGODB_DATABASE}
       MONGODB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+      MONGODB_DATABASE: ${MONGODB_DATABASE}
+
+volumes:
+  mongodb_data:
+    driver: local
