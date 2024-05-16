@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 import { ProdutoController } from "../../controllers/produto";
 import { ProdutoService } from "../../../../core/applications/services/produtoService";
 import { ProdutoRepository } from "../../../driven/infra/repositories/produto";
-import { createProdutoSchema, editProdutoSchema } from "./schemas";
+import { createProdutoSchema, deleteProdutoSchema, editProdutoSchema } from "./schemas";
 import { validatorCompiler } from "../../../driven/infra/validators/ajv"
 
 export const produtoRoutes = async (app: FastifyInstance) => {
@@ -22,5 +22,12 @@ export const produtoRoutes = async (app: FastifyInstance) => {
     validatorCompiler
   }, function (request, response) {
     return controller.edit(request, response)
+  })
+
+  app.delete('/produto', {
+    schema: deleteProdutoSchema,
+    validatorCompiler
+  }, function (request, response) {
+    return controller.delete(request, response)
   })
 }

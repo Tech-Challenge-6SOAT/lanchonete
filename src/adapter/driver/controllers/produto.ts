@@ -42,4 +42,14 @@ export class ProdutoController {
 
     return response.status(201).send(edited)
   }
+
+  async delete(request: FastifyRequest, response: FastifyReply) {
+    const {
+      id
+    } = request.body as IProduto
+
+    await this.produtoService.delete(id)
+
+    return response.status(204).send()
+  }
 }
