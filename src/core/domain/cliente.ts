@@ -1,6 +1,5 @@
 export type ICliente = {
-  email: string // objeto de valor
-  CPF: string // objeto de valor
-  nome: string
-}
-
+  email: string; // objeto de valor
+  cpf: string; // objeto de valor
+  nome: string;
+};
