@@ -22,6 +22,10 @@ const Schema = new mongoose.Schema({
     required: true,
     type: String
   }
-}, { timestamps: true })
+}, {
+  timestamps: true,
+  toObject: { virtuals: true },
+  toJSON: { virtuals: true },
+})
 
 export const ProdutoModel = mongoConnection.model('produtos', Schema)

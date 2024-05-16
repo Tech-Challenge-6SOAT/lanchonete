@@ -22,4 +22,24 @@ export class ProdutoController {
 
     return response.status(201).send(created)
   }
+
+  async edit (request: FastifyRequest, response: FastifyReply) {
+    const {
+      id,
+      categoria,
+      description,
+      nome,
+      preco
+    } = request.body as IProduto
+
+    const edited = await this.produtoService.edit({
+      id,
+      categoria,
+      description,
+      nome,
+      preco
+    })
+
+    return response.status(201).send(edited)
+  }
 }
