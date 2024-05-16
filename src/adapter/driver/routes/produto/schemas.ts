@@ -32,3 +32,13 @@ export const editProdutoSchema = {
     required: ['id']
   }
 }
+
+export const deleteProdutoSchema = {
+  body: {
+    type: 'object',
+    properties: {
+      id: { type: 'string' },
+    },
+    required: ['id']
+  }
+}

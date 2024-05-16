@@ -16,7 +16,7 @@ export class ProdutoService {
         return this.produtoRepository.edit(produto)
     }
 
-    async delete(id: number): Promise<void> {
+    async delete(id: string): Promise<void> {
         return this.produtoRepository.delete(id)
     }
 }

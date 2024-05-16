@@ -31,5 +31,7 @@ export class ProdutoRepository implements IProdutoRepository {
     return response as IProduto
   }
 
-  async delete(id: number): Promise<void> {}
+  async delete(id: string): Promise<void> {
+    await ProdutoModel.findOneAndDelete({ _id: id });
+  }
 }
