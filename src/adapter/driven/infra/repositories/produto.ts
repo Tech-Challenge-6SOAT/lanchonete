@@ -14,12 +14,21 @@ export class ProdutoRepository implements IProdutoRepository {
 
     return {
       ...produto,
-      id: response._id.toString() 
+      id: response._id.toString()
     } as IProduto
   }
 
   async edit(produto: IProduto): Promise<IProduto> {
-    return {} as IProduto
+    const { id, ...fields } = produto
+
+    const response = await ProdutoModel.findOneAndUpdate({ _id: id },
+      { ...fields },
+      {
+        runValidators: true,
+        new: true,
+      })
+
+    return response as IProduto
   }
 
   async delete(id: number): Promise<void> {}
