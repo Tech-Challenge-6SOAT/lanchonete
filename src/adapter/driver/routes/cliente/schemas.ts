@@ -1,3 +1,16 @@
+export const getClienteSchema = {
+  querystring: {
+    type: "object",
+    properties: {
+      cpf: {
+        type: "string",
+      },
+    },
+    required: ["cpf"],
+    additionalProperties: false,
+  },
+};
+
 export const createClienteSchema = {
   body: {
     type: "object",

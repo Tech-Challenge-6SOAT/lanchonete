@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { createClienteSchema } from "./schemas";
+import { createClienteSchema, getClienteSchema } from "./schemas";
 import { validatorCompiler } from "../../../driven/infra/validators/ajv";
 import { ClienteRepository } from "../../../driven/infra/repositories/cliente";
 import { ClienteService } from "../../../../core/applications/services/clienteService";
@@ -13,6 +13,7 @@ export const clienteRoutes = async (app: FastifyInstance) => {
   app.get(
     "/cliente",
     {
+      schema: getClienteSchema,
       validatorCompiler,
     },
     function (request, response) {
