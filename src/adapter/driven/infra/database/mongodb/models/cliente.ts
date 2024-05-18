@@ -16,7 +16,6 @@ const Schema = new mongoose.Schema(
     cpf: {
       required: true,
       type: String,
-      unique: true,
       validate: {
         validator: (value: string) => {
           try {
@@ -53,5 +52,19 @@ const Schema = new mongoose.Schema(
     toJSON: { virtuals: true },
   }
 );
+
+Schema.index({ cpf: 1 }, { unique: true });
+
+const DUPLICATE_KEY_CODE = 11000;
+
+function duplicate(err, doc, next): void {
+  if (err.name === 'MongoServerError' && err.code === DUPLICATE_KEY_CODE) {
+    next(new Error('CPF já existe'));
+  }
+
+  next();
+}
+
+Schema.post('save', duplicate);
 
 export const ClienteModel = mongoConnection.model("clientes", Schema);
