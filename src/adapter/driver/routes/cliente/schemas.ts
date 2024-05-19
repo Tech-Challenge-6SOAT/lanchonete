@@ -1,5 +1,6 @@
 export const getClienteSchema = {
-  querystring: {
+  tags: ['cliente'],
+  query: {
     type: "object",
     properties: {
       cpf: {
@@ -9,9 +10,20 @@ export const getClienteSchema = {
     required: ["cpf"],
     additionalProperties: false,
   },
+  response: {
+    200: {
+      type: 'object',
+      properties: {
+        nome: { type: "string" },
+        cpf: { type: "string" },
+        email: { type: "string" },
+      }
+    }
+  }
 };
 
 export const createClienteSchema = {
+  tags: ['cliente'],
   body: {
     type: "object",
     properties: {
@@ -21,4 +33,14 @@ export const createClienteSchema = {
     },
     required: ["nome", "cpf", "email"],
   },
+  response: {
+    201: {
+      type: 'object',
+      properties: {
+        nome: { type: "string" },
+        cpf: { type: "string" },
+        email: { type: "string" },
+      }
+    }
+  }
 };
