@@ -40,7 +40,7 @@ export class ProdutoController {
       preco
     })
 
-    return response.status(201).send(edited)
+    return response.status(200).send(edited)
   }
 
   async delete(request: FastifyRequest, response: FastifyReply) {
