@@ -6,8 +6,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - .:/app
-    working_dir: /app
+      - .:/app/src
+    working_dir: /app/src
     depends_on:
       - mongo
     environment:
