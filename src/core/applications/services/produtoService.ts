@@ -8,6 +8,10 @@ export class ProdutoService {
         return this.produtoRepository.getProdutosByCategoria(categoria)
     }
 
+    async getProdutoById(id: string): Promise<IProduto> {
+        return this.produtoRepository.getProdutoById(id)
+    }
+
     async create(produto: Omit<IProduto, 'id'>): Promise<IProduto> {
         return this.produtoRepository.create(produto)
     }

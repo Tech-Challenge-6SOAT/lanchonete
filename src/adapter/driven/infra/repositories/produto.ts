@@ -7,6 +7,11 @@ export class ProdutoRepository implements IProdutoRepository {
     return [] as IProduto[]
   }
 
+  async getProdutoById(id: string): Promise<IProduto> {
+    const response = await ProdutoModel.findOne({ _id: id });
+    return response as IProduto;
+  }
+
   async create(produto: Omit<IProduto, 'id'>): Promise<IProduto> {
     const response = await ProdutoModel.create({
       ...produto
