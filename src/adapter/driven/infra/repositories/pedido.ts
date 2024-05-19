@@ -4,9 +4,9 @@ import { PedidoModel } from "../database/mongodb/models";
 
 export class PedidoRepository implements IPedidoRepository {
     async getListaPedidos(): Promise<IPedido[]> {
-        const response = await PedidoModel.find().populate('produtos cliente');
+        const response = await PedidoModel.find().populate('produtos.produto cliente').sort('-createdAt');
 
-        return response;
+        return response as unknown as IPedido[];
     }
 
     async create(pedido: Omit<IPedido, 'id'>): Promise<IPedido> {
@@ -15,6 +15,6 @@ export class PedidoRepository implements IPedidoRepository {
         return {
             ...pedido,
             id: response.id
-        };
+        } as IPedido;
     }
 }

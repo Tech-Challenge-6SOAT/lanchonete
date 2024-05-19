@@ -1,22 +1,40 @@
-import { ICheckout, IPedido } from "../../domain";
+import { ICheckoutInput, IPedido, IProdutos } from "../../domain";
 import { IPedidoRepository, IProdutoRepository } from "../ports";
 
 export class PedidoService {
     constructor(private readonly pedidoRepository: IPedidoRepository, private readonly produtoRepository: IProdutoRepository) { }
 
     async getListaPedidos(): Promise<IPedido[]> {
-        return this.pedidoRepository.getListaPedidos();
+        const results = await this.pedidoRepository.getListaPedidos()
+
+        const pedidos = results.map((pedido) => {
+            const produtos = this.transformProdutos(pedido.produtos);
+
+
+            return {
+                id: pedido.id,
+                status: pedido.status,
+                produtos,
+                cliente: pedido?.cliente?.nome,
+                total: pedido.total,
+                senha: pedido.senha
+            }
+        })
+
+        return pedidos;
     }
 
-    async checkout(pedido: Omit<IPedido, 'id' | 'status' | 'total'>): Promise<ICheckout> {
-        const promises = pedido.produtos.map(async (id) => {
+    async checkout(pedido: ICheckoutInput): Promise<IPedido> {
+        const promises = pedido.produtos.map(async ({ produto: id, quantidade }) => {
             const produto = await this.produtoRepository.getProdutoById(id);
-            return produto;
+            const valor = produto.preco * quantidade
+
+            return { produto, valor, quantidade };
         });
 
-        const produtos = await Promise.all(promises);
-        const total = produtos.reduce((t, { preco }) => t + preco, 0);
-        const nomeProdutos = produtos.map(({ nome }) => nome);
+        const results = await Promise.all(promises);
+        const total = results.reduce((t, { valor }) => t + valor, 0);
+        const produtos = this.transformProdutos(results);
 
         const pedidoCreated = await this.pedidoRepository.create({
             ...pedido,
@@ -28,11 +46,15 @@ export class PedidoService {
         const checkout = {
             id: pedidoCreated.id,
             status: pedidoCreated.status,
-            produtos: nomeProdutos,
+            produtos,
             total,
             senha: pedidoCreated.senha,
         }
 
         return checkout;
+    }
+
+    private transformProdutos(produtos: IProdutos[]): IProdutos[] {
+        return produtos.map(({ produto, quantidade }) => ({ produto: produto.nome, quantidade }))
     }
 }

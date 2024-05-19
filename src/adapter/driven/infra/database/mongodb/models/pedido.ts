@@ -10,11 +10,19 @@ const Schema = new mongoose.Schema({
     required: true,
     enum: [...status]
   },
-  produtos: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'produtos',
-    required: true,
-  },
+  produtos: [
+    {
+      produto: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'produtos',
+        required: true,
+      },
+      quantidade: {
+        type: Number,
+        required: true,
+      }
+    }
+  ],
   cliente: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'clientes',
