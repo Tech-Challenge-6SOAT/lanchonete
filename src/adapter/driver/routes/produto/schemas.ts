@@ -1,82 +1,107 @@
-const categorias = ['Lanche', 'Acompanhamento', 'Bebida', 'Sobremesa']
+const categorias = ["Lanche", "Acompanhamento", "Bebida", "Sobremesa"];
 
-export const createProdutoSchema = {
-  tags: ['produto'],
-  body: {
-    type: 'object',
+export const getProdutoByCategoriaSchema = {
+  tags: ["produto"],
+  query: {
+    type: "object",
     properties: {
       categoria: {
-        type: 'string',
-        enum: categorias
+        type: "string",
       },
-      nome: { type: 'string' },
-      preco: { type: 'number' },
-      description: { type: 'string' }
     },
-    required: ['categoria', 'nome', 'preco', 'description']
-  },
-  response: {
-    201: {
-      type: 'object',
-      properties: {
-        id: { type: 'string' },
-        categoria: {
-          type: 'string',
-          enum: categorias
-        },
-        nome: { type: 'string' },
-        preco: { type: 'number' },
-        description: { type: 'string' }
-      }
-    }
-  }
-}
-
-export const editProdutoSchema = {
-  tags: ['produto'],
-  body: {
-    type: 'object',
-    properties: {
-      id: { type: 'string' },
-      categoria: {
-        type: 'string',
-        enum: categorias
-      },
-      nome: { type: 'string' },
-      preco: { type: 'number' },
-      description: { type: 'string' }
-    },
-    required: ['id']
+    required: ["categoria"],
+    additionalProperties: false,
   },
   response: {
     200: {
-      type: 'object',
+      type: "object",
       properties: {
-        id: { type: 'string' },
+        categoria: { type: "string" },
+        nome: { type: "string" },
+        preco: { type: "number" },
+        description: { type: "string" },
+      },
+    },
+  },
+};
+
+export const createProdutoSchema = {
+  tags: ["produto"],
+  body: {
+    type: "object",
+    properties: {
+      categoria: {
+        type: "string",
+        enum: categorias,
+      },
+      nome: { type: "string" },
+      preco: { type: "number" },
+      description: { type: "string" },
+    },
+    required: ["categoria", "nome", "preco", "description"],
+  },
+  response: {
+    201: {
+      type: "object",
+      properties: {
+        id: { type: "string" },
         categoria: {
-          type: 'string',
-          enum: categorias
+          type: "string",
+          enum: categorias,
         },
-        nome: { type: 'string' },
-        preco: { type: 'number' },
-        description: { type: 'string' }
-      }
-    }
-  }
-}
+        nome: { type: "string" },
+        preco: { type: "number" },
+        description: { type: "string" },
+      },
+    },
+  },
+};
+
+export const editProdutoSchema = {
+  tags: ["produto"],
+  body: {
+    type: "object",
+    properties: {
+      id: { type: "string" },
+      categoria: {
+        type: "string",
+        enum: categorias,
+      },
+      nome: { type: "string" },
+      preco: { type: "number" },
+      description: { type: "string" },
+    },
+    required: ["id"],
+  },
+  response: {
+    200: {
+      type: "object",
+      properties: {
+        id: { type: "string" },
+        categoria: {
+          type: "string",
+          enum: categorias,
+        },
+        nome: { type: "string" },
+        preco: { type: "number" },
+        description: { type: "string" },
+      },
+    },
+  },
+};
 
 export const deleteProdutoSchema = {
-  tags: ['produto'],
+  tags: ["produto"],
   body: {
-    type: 'object',
+    type: "object",
     properties: {
-      id: { type: 'string' },
+      id: { type: "string" },
     },
-    required: ['id']
+    required: ["id"],
   },
   response: {
     204: {
-      type: 'object'
-    }
-  }
-}
+      type: "object",
+    },
+  },
+};
