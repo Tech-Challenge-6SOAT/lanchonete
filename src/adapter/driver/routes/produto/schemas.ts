@@ -1,6 +1,6 @@
 const categorias = ["Lanche", "Acompanhamento", "Bebida", "Sobremesa"];
 
-export const getProdutoByCategoriaSchema = {
+export const getProdutosByCategoriaSchema = {
   tags: ["produto"],
   query: {
     type: "object",
@@ -14,12 +14,16 @@ export const getProdutoByCategoriaSchema = {
   },
   response: {
     200: {
-      type: "object",
-      properties: {
-        categoria: { type: "string" },
-        nome: { type: "string" },
-        preco: { type: "number" },
-        description: { type: "string" },
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          categoria: { type: "string" },
+          nome: { type: "string" },
+          preco: { type: "number" },
+          description: { type: "string" },
+        },
+        required: ["categoria", "nome", "preco", "description"],
       },
     },
   },
