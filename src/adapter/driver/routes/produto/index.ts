@@ -6,7 +6,7 @@ import {
   createProdutoSchema,
   deleteProdutoSchema,
   editProdutoSchema,
-  getProdutoByCategoriaSchema,
+  getProdutosByCategoriaSchema,
 } from "./schemas";
 import { validatorCompiler } from "../../../driven/infra/validators/ajv";
 
@@ -18,7 +18,7 @@ export const produtoRoutes = async (app: FastifyInstance) => {
   app.get(
     "/produto",
     {
-      schema: getProdutoByCategoriaSchema,
+      schema: getProdutosByCategoriaSchema,
       validatorCompiler,
     },
     function (request, response) {
