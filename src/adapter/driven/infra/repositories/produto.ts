@@ -4,7 +4,8 @@ import { ProdutoModel } from "../database/mongodb/models";
 
 export class ProdutoRepository implements IProdutoRepository {
   async getProdutosByCategoria(categoria: Categoria): Promise<IProduto[]> {
-    return [] as IProduto[]
+    const produtos = await ProdutoModel.find({ categoria });
+    return produtos as IProduto[];
   }
 
   async getProdutoById(id: string): Promise<IProduto> {
@@ -12,28 +13,30 @@ export class ProdutoRepository implements IProdutoRepository {
     return response as IProduto;
   }
 
-  async create(produto: Omit<IProduto, 'id'>): Promise<IProduto> {
+  async create(produto: Omit<IProduto, "id">): Promise<IProduto> {
     const response = await ProdutoModel.create({
-      ...produto
-    })
+      ...produto,
+    });
 
     return {
       ...produto,
-      id: response._id.toString()
-    } as IProduto
+      id: response._id.toString(),
+    } as IProduto;
   }
 
   async edit(produto: IProduto): Promise<IProduto> {
-    const { id, ...fields } = produto
+    const { id, ...fields } = produto;
 
-    const response = await ProdutoModel.findOneAndUpdate({ _id: id },
+    const response = await ProdutoModel.findOneAndUpdate(
+      { _id: id },
       { ...fields },
       {
         runValidators: true,
         new: true,
-      })
+      }
+    );
 
-    return response as IProduto
+    return response as IProduto;
   }
 
   async delete(id: string): Promise<void> {
