@@ -18,6 +18,7 @@ export const getProdutosByCategoriaSchema = {
       items: {
         type: "object",
         properties: {
+          id: { type: "string" },
           categoria: { type: "string" },
           nome: { type: "string" },
           preco: { type: "number" },

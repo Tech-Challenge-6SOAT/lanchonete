@@ -1,22 +1,22 @@
 export class CPF {
   private readonly value: string;
 
-  private constructor(value: string) {
-    this.value = value;
+  constructor(value: string) {
+    this.value = this.create(value);
   }
 
-  public static create(value: string): CPF {
+  private create(value: string): string {
     if (!this.isValid(value)) {
       throw new Error("CPF Inválido");
     }
-    return new CPF(value);
+    return value;
   }
 
   public getValue(): string {
     return this.value;
   }
 
-  private static isValid(value: string): boolean {
+  private isValid(value: string): boolean {
     const cpfRegex = /^[0-9]{11}$/;
     return cpfRegex.test(value);
   }

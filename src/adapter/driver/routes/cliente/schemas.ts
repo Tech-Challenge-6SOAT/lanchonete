@@ -14,6 +14,7 @@ export const getClienteSchema = {
     200: {
       type: 'object',
       properties: {
+        id: { type: "string" },
         nome: { type: "string" },
         cpf: { type: "string" },
         email: { type: "string" },
@@ -37,6 +38,7 @@ export const createClienteSchema = {
     201: {
       type: 'object',
       properties: {
+        id: { type: "string" },
         nome: { type: "string" },
         cpf: { type: "string" },
         email: { type: "string" },
