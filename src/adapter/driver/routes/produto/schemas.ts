@@ -1,13 +1,19 @@
 const categorias = ["Lanche", "Acompanhamento", "Bebida", "Sobremesa"];
 
+const categoria = {
+  type: "string",
+  enum: categorias,
+  errorMessage: {
+    enum: `categoria should be one of ${categorias.join(', ')}`
+  }
+}
+
 export const getProdutosByCategoriaSchema = {
   tags: ["produto"],
   query: {
     type: "object",
     properties: {
-      categoria: {
-        type: "string",
-      },
+      categoria
     },
     required: ["categoria"],
     additionalProperties: false,
@@ -35,10 +41,7 @@ export const createProdutoSchema = {
   body: {
     type: "object",
     properties: {
-      categoria: {
-        type: "string",
-        enum: categorias,
-      },
+      categoria,
       nome: { type: "string" },
       preco: { type: "number" },
       description: { type: "string" },
@@ -68,10 +71,7 @@ export const editProdutoSchema = {
     type: "object",
     properties: {
       id: { type: "string" },
-      categoria: {
-        type: "string",
-        enum: categorias,
-      },
+      categoria,
       nome: { type: "string" },
       preco: { type: "number" },
       description: { type: "string" },
