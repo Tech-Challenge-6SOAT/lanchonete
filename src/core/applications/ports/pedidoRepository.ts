@@ -1,6 +1,6 @@
-import { IPedido } from "../../domain";
+import { ICreatePedido, IGetPedido } from "../../domain";
 
 export interface IPedidoRepository {
-    getListaPedidos(): Promise<IPedido[]>;
-    create(pedido: Omit<IPedido, 'id'>): Promise<IPedido>;
+    getListaPedidos(): Promise<IGetPedido[]>;
+    create(pedido: Omit<ICreatePedido, 'id'>): Promise<ICreatePedido>;
 }
